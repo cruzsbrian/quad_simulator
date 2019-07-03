@@ -18,9 +18,9 @@ lambda = [ 20, 0, 0;
            0, 20, 0
            0, 0, 20 ];
 
-K = [ 750, 0, 0;
-      0, 750, 0;
-      0, 0, 750 ];
+K = [ 0, 0, 0;
+      0, 0, 0;
+      0, 0, 0 ];
 
 % Transformation from body frame to intertial frame, inverse
 Z = [ 1, sin(eta(1))*tan(eta(2)), cos(eta(1))*tan(eta(2));
