@@ -6,23 +6,21 @@ air_density = 1.225;
 Ixx = 1.0181101*10^(-2);
 Iyy = 0.97079192*10^(-2);
 Izz = 1.8834745*10^(-2);
-%Ixx = 1;
-%Iyy = 1;
-%Izz = 1;
-arm_length = 0.266;
+arm_length = 0.2667;
 prop_diameter = 0.254;
 
 % Estimate power and thrust coefficients using polynomial approximation
 CP = 0.063811 + (2.006e-6)*pwm - (1.8024e-10)*pwm.^2;
-CT = 0.135960 + (5.5549-6)*pwm - (9.4623e-11)*pwm.^2;
+CT = 0.135960 + (5.5549e-6)*pwm - (9.4623e-11)*pwm.^2;
 
 % Aerodynamic coefficient matrix from above values
 B = [
     -arm_length * CT(1) / sqrt(2),  arm_length * CT(2) / sqrt(2),   arm_length * CT(3) / sqrt(2), -arm_length * CT(4) / sqrt(2);
     arm_length * CT(1) / sqrt(2),  -arm_length * CT(2) / sqrt(2),   arm_length * CT(3) / sqrt(2), -arm_length * CT(4) / sqrt(2);
-    prop_diameter * CP(1) / (2 * pi),  prop_diameter * CP(2) / (2 * pi),   -prop_diameter * CP(3) / (2 * pi), -prop_diameter * CP(4) / (2 * pi);
+    prop_diameter * CT(1) / (2 * pi),  prop_diameter * CT(2) / (2 * pi),   -prop_diameter * CT(3) / (2 * pi), -prop_diameter * CT(4) / (2 * pi);
     CT(1), CT(2), CT(3), CT(4)
 ];
+
 
 % Transformation from body frame to intertial frame
 Z = [1,    sin(eta(1))*tan(eta(2)),   cos(eta(1))*tan(eta(2));
@@ -48,7 +46,9 @@ thrust = output(4);
 eta_dot = Z * omega;
 
 omega_dot = [
-    -((Iyy - Izz) * omega(2) * omega(3) + torque(1)) / Ixx;
-    -((Izz - Ixx) * omega(1) * omega(3) + torque(2)) / Iyy;
+    ((Iyy - Izz) * omega(2) * omega(3) + torque(1)) / Ixx;
+    ((Izz - Ixx) * omega(1) * omega(3) + torque(2)) / Iyy;
     ((Ixx - Iyy) * omega(1) * omega(2) + torque(3)) / Izz;
 ];
+end
+

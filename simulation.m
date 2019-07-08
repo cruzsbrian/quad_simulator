@@ -7,7 +7,7 @@ function main
 
     thrust = 3;
 
-    [t, x] = ode15s(@(t, x) F(t, x, eta_d, thrust), [0 10], x0);
+    [t, x] = ode45(@(t, x) F(t, x, eta_d, thrust), [0 1], x0);
 
     plot(t, x(:, 1:3));
     legend('phi', 'theta', 'psi');

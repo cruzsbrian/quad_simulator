@@ -18,9 +18,9 @@ lambda = [ 20, 0, 0;
            0, 20, 0
            0, 0, 20 ];
 
-K = [ 0, 0, 0;
-      0, 0, 0;
-      0, 0, 0 ];
+K = [ 750, 0, 0;
+      0, 750, 0;
+      0, 0, 750 ];
 
 % Transformation from body frame to intertial frame, inverse
 Z = [ 1, sin(eta(1))*tan(eta(2)), cos(eta(1))*tan(eta(2));
@@ -46,6 +46,10 @@ invZ_dot = [ 0, 0,                        -cos(eta(2))*eta_dot(2);
 omega_d_dot = [0; 0; 0];
 
 omega_r = omega_d + invZ * lambda * (eta_d - eta);
+
 omega_r_dot = omega_d_dot + lambda*(omega_d - omega) + invZ_dot * lambda * (eta_d - eta);
 
+%control_torque = J * omega_r_dot - cross(J * omega, omega_r) + K * (omega_r - omega);
 control_torque = J * omega_r_dot - cross(J * omega, omega_r) + K * (omega_r - omega);
+end
+

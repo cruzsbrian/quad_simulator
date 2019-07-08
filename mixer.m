@@ -27,3 +27,5 @@ rpm = sqrt(rpm_square);
 
 % Use a linear fit to find approximate pwm to get this motor speed
 pwm = 0.1716 * rpm + 804.3572;
+end
+
