@@ -3,11 +3,12 @@ function main
     omega_0 = [0; 0; 0];
     x0 = [eta_0; omega_0];
 
-    eta_d = [0; pi / 6; pi / 6];
+    eta_d = [0; -pi / 6; pi / 6];
 
     thrust = 3;
 
-    [t, x] = ode45(@(t, x) F(t, x, eta_d, thrust), [0 1], x0);
+    options = odeset('MaxStep', 0.1);
+    [t, x] = ode45(@(t, x) F(t, x, eta_d, thrust), [0 1], x0, options);
 
     plot(t, x(:, 1:3));
     legend('phi', 'theta', 'psi');
