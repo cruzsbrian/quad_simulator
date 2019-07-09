@@ -4,6 +4,8 @@ function [pwm] = mixer(control_thrust, control_torque)
 prop_diameter = 0.2667;
 air_density   = 1.225;
 
+thrust_gain = 9.874e3;
+
 % This uses a linear approximation of the aerodynamic coefficient matrix
 invB0 = 1.0e+04 * [
    -0.1598,    0.1598,    1.5335,    0.0301;
@@ -17,7 +19,7 @@ B1 = 1.0e+04 * [
    -0.1985,   -0.1985,    0.1985,    0.1985;
    -7.3047,   -7.3047,   -7.3047,   -7.3047];
 
-input = [control_torque; control_thrust];
+input = [control_torque; control_thrust * thrust_gain];
 
 % Note that this is different from the equation used in the paper
 % It is taken from the attitude_mode simulink file
