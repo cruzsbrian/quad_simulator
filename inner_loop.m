@@ -14,13 +14,13 @@ k = [ 5, 0, 0;
       0, 5, 0;
       0, 0, 2.8 ];
 
-lambda = [ 20, 0, 0;
-           0, 20, 0
-           0, 0, 20 ];
+lambda = [ 3, 0, 0;
+           0, 3, 0
+           0, 0, 3 ];
 
-K = [ 750, 0, 0;
-      0, 750, 0;
-      0, 0, 750 ];
+K = [ 100, 0, 0;
+      0, 100, 0;
+      0, 0, 100 ];
 
 % Transformation angular velocity to rate of change in Euler angles
 Z = [ 1, sin(eta(1))*tan(eta(2)), cos(eta(1))*tan(eta(2));

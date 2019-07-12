@@ -5,18 +5,20 @@ function main
     omega_0 = [0; 0; 0];
     x0 = [pos_0; v_0; eta_0; omega_0];
 
-    pos_d = [0; 0; 0];
+    pos_d = [0; 0; 5];
 
-    options = odeset('MaxStep', 0.1);
-    [t, x] = ode45(@(t, x) F(t, x, pos_d), [0 1], x0, options);
+    options = odeset('MaxStep', 0.01);
+    [t, x] = ode15s(@(t, x) F(t, x, pos_d), [0 10], x0, options);
 
-    %subplot(2,1,1);
-    %plot(t, x(:, 1:3));
-    %legend('pos_x', 'pos_y', 'pos_z');
-    %title('Position');
+    subplot(2,1,1);
+    plot(t, x(:, 1:3));
+    ylim([-10 10]);
+    legend('pos_x', 'pos_y', 'pos_z');
+    title('Position');
 
-    %subplot(2,1,2);
+    subplot(2,1,2);
     plot(t, x(:, 7:9));
+    ylim([-pi/2 pi/2]);
     legend('phi', 'theta', 'psi');
     title('Attitude');
 end
